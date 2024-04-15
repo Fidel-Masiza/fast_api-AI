@@ -1,0 +1,100 @@
+info:
+  title: API Documentation
+  version: 1.0.0
+  description: Documentation for the API endpoints
+paths:
+  /:
+    get:
+      summary: Index Endpoint
+      description: Endpoint to access the index page.
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+  /signup/:
+    post:
+      summary: Signup Endpoint
+      description: Endpoint for user registration.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            text/html:
+              schema:
+                type: string
+  /login/:
+    post:
+      summary: Login Endpoint
+      description: Endpoint for user authentication.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            text/html:
+              schema:
+                type: string
+  /api/gemini:
+    post:
+      summary: Gemini API Endpoint
+      description: Endpoint for generating captions for images using Gemini AI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                img_url:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/markdown:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            text/html:
+              schema:
+                type: string

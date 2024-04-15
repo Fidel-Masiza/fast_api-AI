@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome, {{ username }}!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
+
+    <script>
+
+        
+        function handleButtonClick() {
+            const creditsDisplay = document.getElementById('credits-display');
+            const responseDisplay = document.getElementById('response');
+            const generateButton = document.getElementById('generate-button');
+            const promptTextArea = document.getElementById('prompt');
+            const notificationArea = document.getElementById('notification'); // New notification element
+    
+            let credits = parseInt(creditsDisplay.textContent);
+    
+            if (credits > 0) {
+                // Reduce credits by 1
+                credits -= 1;
+                creditsDisplay.textContent = credits;
+    
+                // Display notification
+                const notificationMessage = `You have used 1 credit. ${credits} credits remaining.`;
+                notificationArea.textContent = notificationMessage;
+    
+                // Simulate generating response (you can replace this with actual logic)
+                responseDisplay.textContent = "Generating response...";
+    
+                // Disable button when credits reach 0
+                if (credits === 0) {
+                    generateButton.disabled = true;
+                }
+    
+                // Reset prompt text area
+                promptTextArea.value = '';
+                 // Automatically hide notification after 5 seconds
+                setTimeout(() => {
+                 notificationArea.textContent = ''; // Clear notification message
+                  }, 5000);
+            } else {
+                // No credits left, display message (optional)
+                responseDisplay.textContent = "You have no credits left!";
+            }
+        }
+
+      
+    
+    </script>
+
+
+        <style>
+            #notification {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                color: #721c24;
+                padding: 10px;
+                border: 1px solid #f5c6cb;
+                border-radius: 5px;
+                z-index: 999; /* Ensure it's above other elements */
+            }
+        
+            #notification i {
+                margin-right: 5px;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                display: block;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                padding: 20px;
+            }
+    
+            h1 {
+                text-align: center;
+                color: #007bff; /* Blue color for the heading */
+                font-size: 36px; /* Adjust font size */
+                font-weight: bold; /* Make text bold */
+                text-transform: capitalize; /* Capitalize the username */
+            }
+            p{
+                text-align:center;
+                color: black; /* Blue color for the heading */
+                font-size: 20px; /* Adjust font size */
+                font-weight: bold; /* Make text bold */                
+            }
+            /* General form styles */
+            #prompt-form {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+    
+            /* Label styles */
+            label {
+                display: block;
+                margin-bottom: 8px;
+                color: #333;
+            }
+    
+            /* Textarea styles */
+            textarea, input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                resize: vertical; /* Allow vertical resizing for textarea */
+            }
+    
+            /* Button styles */
+            #generate-button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 12px 20px;
+                font-size: 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+            }
+            #generate-button[disabled] {
+                background-color: #ccc; 
+                color: #666; 
+                cursor: not-allowed; 
+            }
+    
+            /* Button hover effect */
+            #generate-button:hover {
+                background-color: #fff;
+                color: #007bff;
+            }
+    
+        </style>
+        
+        
+</head>
+<body>
+    <h1>Welcome, {{ username }}!</h1>
+    <p>You have successfully joined us. Your credits balance is: <span id="credits-display">{{ credits }}</span></p>
+    <div id="notification">
+        <i class="fas fa-bell"></i>
+        <span id="notification-message"></span>
+    </div>
+        <form id="prompt-form">
+            <label for="prompt">Enter Prompt:</label>
+            <textarea id="prompt" name="prompt" rows="4" cols="50" required></textarea><br><br>
+            
+            <label for="img-url">Image URL:</label>
+            <input type="text" id="img-url" name="img-url" required><br><br>
+            <button type="button" id="generate-button" onclick="handleButtonClick()">Generate Response</button>
+
+        </form>
+       
+
+    
+    <div id="response"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
